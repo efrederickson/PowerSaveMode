@@ -51,7 +51,7 @@
 {
  	if ([[specifier propertyForKey:@"isPowerSavingSpec"] isEqual:@YES])
  	{
-		[PSPersistence.sharedInstance setPSModeEnabled:[value boolValue]];
+		[[objc_getClass("PSPersistence") sharedInstance] setPSModeEnabled:[value boolValue]];
 		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("com.efrederickson.powersaver.settings_changed"), nil, nil, YES);
 		return;
  	}
@@ -61,7 +61,7 @@
  -(id)readPreferenceValue:(PSSpecifier*)specifier
  {
  	if ([[specifier propertyForKey:@"isPowerSavingSpec"] isEqual:@YES])
-		return @(PSPersistence.sharedInstance.isPSModeEnabled);
+		return @([[objc_getClass("PSPersistence") sharedInstance] isPSModeEnabled]);
 
 	return %orig;
  }

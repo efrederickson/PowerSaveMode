@@ -14,7 +14,7 @@
 	{
 		[ret addObject:@{
 			@"cell": @"PSSwitchCell",
-			@"default": @([PSPersistence.sharedInstance isToggleEnabled:toggle.identifier]),
+			@"default": @([[objc_getClass("PSPersistence") sharedInstance] isToggleEnabled:toggle.identifier]),
 			@"identifier": toggle.identifier,
 			@"label": toggle.displayName
 		}];
@@ -26,12 +26,12 @@
 
 -(id)readPreferenceValue:(PSSpecifier*)specifier
 {
-	return @([PSPersistence.sharedInstance isToggleEnabled:[specifier propertyForKey:@"identifier"]]);
+	return @([[objc_getClass("PSPersistence") sharedInstance] isToggleEnabled:[specifier propertyForKey:@"identifier"]]);
 }
 
 -(void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier
 {
-	[PSPersistence.sharedInstance setToggle:[specifier propertyForKey:@"identifier"] enabled:[value boolValue]];
+	[[objc_getClass("PSPersistence") sharedInstance] setToggle:[specifier propertyForKey:@"identifier"] enabled:[value boolValue]];
 	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("com.efrederickson.powersaver.settings_changed"), nil, nil, YES);
 	return;
 }

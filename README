@@ -19,6 +19,7 @@ When enabled:
 	- disable auto downloads (music, apps, books, etc) and auto updates
 	- turn off auto-brightness / turn brightness down
 	- turn off ringer / turn sounds (volume) down/off
+	- turn off bluetooth (if no connected devices)
 
 √ When plugged in, auto-disable
 Add a button to the low power alerts
