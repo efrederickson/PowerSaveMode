@@ -1,9 +1,8 @@
 #import "PowerSaver.h"
 #import "PSToggleProtocol.h"
+#import "PSPersistence.h"
 
-@interface PSBARToggle : NSObject<PSToggleProtocol> {
-	BOOL lastState;
-}
+@interface PSBARToggle : NSObject<PSToggleProtocol>
 @end
 
 @interface MCProfileConnection : NSObject
@@ -15,16 +14,19 @@
 @implementation PSBARToggle
 - (void) disable
 {
-	lastState = [[%c(MCProfileConnection) sharedConnection] isAutomaticAppUpdatesAllowed];
+	SET_STATE([[%c(MCProfileConnection) sharedConnection] isAutomaticAppUpdatesAllowed]);
 	[[%c(MCProfileConnection) sharedConnection] setAutomaticAppUpdatesAllowed:NO];
 	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("kKeepAppsUpToDateEnabledChangedNotification"), nil, nil, NO);
 }
 
 - (void) enable
 {
-	[[%c(MCProfileConnection) sharedConnection] setAutomaticAppUpdatesAllowed:lastState];
+	[[%c(MCProfileConnection) sharedConnection] setAutomaticAppUpdatesAllowed:GET_STATE];
 	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("kKeepAppsUpToDateEnabledChangedNotification"), nil, nil, NO);
 }
+
+-(NSString*) identifier { return @"com.efrederickson.powersaver.toggles.backgroundapprefresh"; }
+-(NSString*) displayName { return @"Disable Background App Refresh"; }
 @end
 
 %ctor

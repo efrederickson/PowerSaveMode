@@ -23,10 +23,57 @@
 {
 	return [[prefs valueForKey:@"psModeEnabled"] boolValue];
 }
+
 -(void) setPSModeEnabled:(BOOL)value
 {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:FILE_PATH] ?: [NSMutableDictionary dictionary];
 	dict[@"psModeEnabled"] = @(value);
+	[dict writeToFile:FILE_PATH atomically:YES];
+	
+	prefs = dict;
+}
+
+
+-(BOOL) isToggleEnabled:(NSString*)ident
+{
+	id val = [prefs valueForKey:[NSString stringWithFormat:@"Enabled-%@",ident]];
+	return val ? [val boolValue] : YES;
+}
+
+-(void) setToggle:(NSString*)ident enabled:(BOOL)value
+{
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:FILE_PATH] ?: [NSMutableDictionary dictionary];
+	dict[[NSString stringWithFormat:@"Enabled-%@",ident]] = @(value);
+	[dict writeToFile:FILE_PATH atomically:YES];
+	
+	prefs = dict;
+}
+
+-(BOOL) isToggleStateOn:(NSString*)ident
+{
+	id val = [prefs valueForKey:[NSString stringWithFormat:@"State-%@",ident]];
+	return val ? [val boolValue] : NO;
+}
+
+-(void) setToggleState:(BOOL)value forIdentifier:(NSString*)ident
+{
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:FILE_PATH] ?: [NSMutableDictionary dictionary];
+	dict[[NSString stringWithFormat:@"State-%@",ident]] = @(value);
+	[dict writeToFile:FILE_PATH atomically:YES];
+	
+	prefs = dict;
+}
+
+-(BOOL) getValue:(NSString*)valName forIdentifier:(NSString*)identifier
+{
+	id val = [prefs valueForKey:[NSString stringWithFormat:@"ExtraVal-%@-%@",identifier,valName]];
+	return val ? [val boolValue] : NO;
+}
+
+-(void) setValue:(BOOL)value forName:(NSString*)valName forIdentifier:(NSString*)identifier
+{
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:FILE_PATH] ?: [NSMutableDictionary dictionary];
+	dict[[NSString stringWithFormat:@"ExtraVal-%@-%@",identifier,valName]] = @(value);
 	[dict writeToFile:FILE_PATH atomically:YES];
 	
 	prefs = dict;

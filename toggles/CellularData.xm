@@ -1,6 +1,7 @@
 #import "PowerSaver.h"
 #import "PSToggleProtocol.h"
 #import <substrate.h>
+#import "PSPersistence.h"
 
 extern "C" Boolean CTCellularDataPlanGetIsEnabled();
 extern "C" void CTCellularDataPlanSetIsEnabled(Boolean enabled);
@@ -11,10 +12,7 @@ extern "C" void CTCellularDataPlanSetIsEnabled(Boolean enabled);
 +(id) sharedInstance;
 @end
 
-@interface PSCDToggle : NSObject <PSToggleProtocol> {
-	BOOL lastState;
-	BOOL didChange;
-}
+@interface PSCDToggle : NSObject <PSToggleProtocol>
 @end
 
 @implementation PSCDToggle
@@ -22,24 +20,28 @@ extern "C" void CTCellularDataPlanSetIsEnabled(Boolean enabled);
 {
 	if (MSHookIvar<void*>([%c(SBWiFiManager) sharedInstance], "_currentNetwork") == NULL)
 	{
-		didChange = NO;
+		SET_VAL(NO, @"didChange");
 		NSLog(@"[PowerSaver] WiFi is not connected, on Cellular Data already. ignoring.");
 		return;
 	}
 
-	didChange = YES;
-	lastState = CTCellularDataPlanGetIsEnabled();
+	SET_VAL(YES, @"didChange");
+	SET_STATE(CTCellularDataPlanGetIsEnabled());
 	CTCellularDataPlanSetIsEnabled(NO);
 }
 
 -(void) enable
 {
+	BOOL didChange = GET_VAL(@"didChange");
 	if (!didChange)
 		return;
-	didChange = NO;
+	SET_VAL(NO, @"didChange");
 
-	CTCellularDataPlanSetIsEnabled(lastState);
+	CTCellularDataPlanSetIsEnabled(GET_STATE);
 }
+
+-(NSString*) identifier { return @"com.efrederickson.powersaver.toggles.cellulardata"; }
+-(NSString*) displayName { return @"Disable Cellular Data if on WiFi"; }
 @end
 
 %ctor

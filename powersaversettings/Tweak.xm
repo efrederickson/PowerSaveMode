@@ -33,13 +33,15 @@
     [ret insertObject:group atIndex:0];
 
 	PSSpecifier* spec = [PSSpecifier preferenceSpecifierNamed:@"Power Saving Mode" target:self set:@selector(setPreferenceValue:specifier:) get:@selector(readPreferenceValue:) detail:nil cell:PSSwitchCell edit:nil];
-	spec->action = @selector(showInternalViewController);
 	[spec setProperty:@YES forKey:@"isPowerSavingSpec"];
     [ret insertObject:spec atIndex:1];
 
+	spec = [PSSpecifier preferenceSpecifierNamed:@"Power Saving Options" target:self set:nil get:nil detail:objc_getClass("PowerSaverOptionsListController") cell:PSLinkCell edit:nil];
+    [ret insertObject:spec atIndex:2];
+
     group = [PSSpecifier emptyGroupSpecifier];
     [group setProperty:@"" forKey:@"footerText"];
-    [ret insertObject:group atIndex:2];
+    [ret insertObject:group atIndex:3];
 
 
     return ret;

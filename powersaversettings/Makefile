@@ -3,7 +3,7 @@ ARCHS = armv7 arm64
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = PowerSaverSettings
-PowerSaverSettings_FILES = $(shell find $(THEOS)/include/SettingsKit -name '*.m') Tweak.xm ../PSPersistence.mm
+PowerSaverSettings_FILES = $(shell find $(THEOS)/include/SettingsKit -name '*.m') Tweak.xm ../PSPersistence.mm PowerSaverOptionsListController.mm
 PowerSaverSettings_FRAMEWORKS = UIKit MessageUI Social QuartzCore CoreGraphics GraphicsServices
 PowerSaverSettings_PRIVATE_FRAMEWORKS = Preferences
 

@@ -1,9 +1,8 @@
 #import "PowerSaver.h"
 #import "PSToggleProtocol.h"
+#import "PSPersistence.h"
 
-@interface PSICToggle : NSObject <PSToggleProtocol> {
-	BOOL lastState;
-}
+@interface PSICToggle : NSObject <PSToggleProtocol>
 @end
 
 extern "C" Boolean _AXSEnhanceBackgroundContrastEnabled();
@@ -12,14 +11,17 @@ extern "C" void _AXSSetEnhanceBackgroundContrastEnabled(BOOL enabled);
 @implementation PSICToggle
 -(void) disable
 {
-	lastState = _AXSEnhanceBackgroundContrastEnabled();
+	SET_STATE(_AXSEnhanceBackgroundContrastEnabled());
 	_AXSSetEnhanceBackgroundContrastEnabled(YES);
 }
 
 -(void) enable
 {
-	_AXSSetEnhanceBackgroundContrastEnabled(lastState);
+	_AXSSetEnhanceBackgroundContrastEnabled(GET_STATE);
 }
+
+-(NSString*) identifier { return @"com.efrederickson.powersaver.toggles.increasecontrast"; }
+-(NSString*) displayName { return @"Increase Contrast"; }
 @end
 
 %ctor

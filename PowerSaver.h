@@ -13,4 +13,6 @@
 -(void) disablePowerSaver;
 
 -(void) updateForPersistenceValue;
+
+-(NSArray*) availableToggles;
 @end

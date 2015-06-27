@@ -26,22 +26,42 @@
 
 -(void) enablePowerSaver
 {
+	if ([NSBundle.mainBundle.bundleIdentifier isEqual:@"com.apple.springboard"] == NO)
+		@throw [NSException exceptionWithName:@"NotSpringboardException" reason:@"Cannot start PowerSaver outside of SpringBoard" userInfo:nil];
+
+	if (self.isEnabled)
+		return;
+
 	PS_PERSISTENCE_ENABLED_SET(YES);
 	self.isEnabled = YES;
 
+	NSLog(@"[PowerSaver] enabling power saver");
+
 	for (NSObject<PSToggleProtocol> *obj in availableToggles)
 	{
+		if ([PSPersistence.sharedInstance isToggleEnabled:obj.identifier] == NO)
+			continue;
 		[obj disable];
 	}
 }
 
 -(void) disablePowerSaver
 {
+	if ([NSBundle.mainBundle.bundleIdentifier isEqual:@"com.apple.springboard"] == NO)
+		@throw [NSException exceptionWithName:@"NotSpringboardException" reason:@"Cannot start PowerSaver outside of SpringBoard" userInfo:nil];
+
+	if (!self.isEnabled)
+		return;
+
 	PS_PERSISTENCE_ENABLED_SET(NO);
 	self.isEnabled = NO;
 
+	NSLog(@"[PowerSaver] disabling power saver");
+
 	for (NSObject<PSToggleProtocol> *obj in availableToggles)
 	{
+		if ([PSPersistence.sharedInstance isToggleEnabled:obj.identifier] == NO)
+			continue;
 		[obj enable];
 	}
 }
@@ -52,5 +72,10 @@
 		[self enablePowerSaver];
 	else
 		[self disablePowerSaver];	
+}
+
+-(NSArray*) availableToggles
+{
+	return availableToggles;
 }
 @end
