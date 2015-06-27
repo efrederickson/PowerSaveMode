@@ -1,0 +1,21 @@
+Power Saver Mode brings an iOS9-like power saving switch to disable some features of iOS that aren't required and can be computationally or battery expensive. 
+
+Includes a Flipswitch. 
+
+Other people/tweak makers can make toggles ("plugins") for this by implementing the PSToggleProtocol in their class, then registering an instance of that class with PowerSaver. Take a look at one of the existing toggles for more details. For example if you have a battery intensive tweak (e.g. some sort of UI mod like AquaBoard), you could implement a toggle for this that when turned on would disable AquaBoard. 
+
+
+FEATURES/TODO:
+
+When enabled:
+√ Turn battery yellow like iOS 9
+	√ turn on reduce motion
+	√ turn off background app refresh
+	√ turn on "Increase Contrast/Reduce Transparency"
+	√ Disable Cellular Data if on WiFi
+	√ disable location services
+	- turn off mail fetch (to manual)
+	- ? disable animated wallpapers
+
+√ When plugged in, auto-disable
+Add a button to the low power alerts
