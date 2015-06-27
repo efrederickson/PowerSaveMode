@@ -9,7 +9,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.efrederickson.powersaver.flipswitch</string>
 	<key>CFBundleDisplayName</key>
-	<string>PowerSaverFlipswitch</string>
+	<string>Power Saver</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
