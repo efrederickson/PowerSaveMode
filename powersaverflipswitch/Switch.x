@@ -1,6 +1,7 @@
 #import "FSSwitchDataSource.h"
 #import "FSSwitchPanel.h"
 #import "PowerSaver.h"
+#import "PSPersistence.h"
 
 @interface PowerSaverFlipswitchSwitch : NSObject <FSSwitchDataSource>
 @end
@@ -16,10 +17,8 @@
 {
 	if (newState == FSSwitchStateIndeterminate)
 		return;
-	if (newState == FSSwitchStateOn)
-		[[%c(PowerSaver) sharedInstance] enable];
-	else
-		[[%c(PowerSaver) sharedInstance] disable];
+	[[%c(PSPersistence) sharedInstance] setPSModeEnabled:newState == FSSwitchStateOn ? YES : NO];
+	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("com.efrederickson.powersaver.settings_changed"), nil, nil, YES);
 }
 
 @end
