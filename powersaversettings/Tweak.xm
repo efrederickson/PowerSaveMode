@@ -29,7 +29,7 @@
 	NSMutableArray *ret = %orig;
 
     PSSpecifier *group = [PSSpecifier emptyGroupSpecifier];
-    [group setProperty:@"Disables some battery-hungry features. This enables Increase Contrast and Reduce Motion, disables Background App Refresh, disables location services, and disables Cellular Data if connected to WiFi. It will automatically disable when you connect to a power source." forKey:@"footerText"];
+    [group setProperty:@"Disables some battery-hungry features. This enables Increase Contrast and Reduce Motion, disables Background App Refresh, disables location services, and disables Cellular Data if connected to WiFi. Power Saving Mode will automatically disable when you connect to a power source." forKey:@"footerText"];
     [ret insertObject:group atIndex:0];
 
 	PSSpecifier* spec = [PSSpecifier preferenceSpecifierNamed:@"Power Saving Mode" target:self set:@selector(setPreferenceValue:specifier:) get:@selector(readPreferenceValue:) detail:nil cell:PSSwitchCell edit:nil];
