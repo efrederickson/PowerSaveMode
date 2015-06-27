@@ -12,6 +12,7 @@ extern "C" void _AXSSetReduceMotionEnabled(BOOL enabled);
 @implementation PSRMToggle
 -(void) disable
 {
+	NSLog(@"[PowerSaver] disabling reduce motion");
 	lastState = _AXSReduceMotionEnabled();
 	_AXSSetReduceMotionEnabled(YES);
 }

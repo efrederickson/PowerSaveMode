@@ -48,7 +48,6 @@
 
 -(void) updateForPersistenceValue
 {
-	NSLog(@"[PowerSaver] Updating for persistence value change: %@", @(PS_PERSISTENCE_ENABLED));
 	if PS_PERSISTENCE_ENABLED
 		[self enablePowerSaver];
 	else

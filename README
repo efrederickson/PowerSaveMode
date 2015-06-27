@@ -15,7 +15,8 @@ When enabled:
 	√ Disable Cellular Data if on WiFi
 	√ disable location services
 	- turn off mail fetch (to manual)
-	- ? disable animated wallpapers
+	- ? disable animated wallpapers (like ios 9)
+	- disable auto downloads (music, apps, books, etc) and auto updates
 
 √ When plugged in, auto-disable
 Add a button to the low power alerts

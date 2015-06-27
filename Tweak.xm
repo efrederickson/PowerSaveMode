@@ -18,8 +18,7 @@ BOOL wasChanged = NO;
 	_UILegibilityImageSet *original = %orig;
 
 	UIColor *color = [UIColor colorWithRed:255/255.0f green:197/255.0f blue:0/255.0f alpha:1.0f];
-	if (color && [color _isSimilarToColor:[UIColor blackColor] withinPercentage:0.2] == NO)
-		original.image = [original.image _flatImageWithColor:color];
+	original.image = [original.image _flatImageWithColor:color];
     
 	return original;
 }
@@ -52,6 +51,7 @@ void reloadSettings(CFNotificationCenterRef center,
                     const void *object,
                     CFDictionaryRef userInfo)
 {
+	[PSPersistence.sharedInstance loadPrefs];
 	if ([NSBundle.mainBundle.bundleIdentifier isEqual:@"com.apple.springboard"])
 		[PowerSaver.sharedInstance updateForPersistenceValue];
 
