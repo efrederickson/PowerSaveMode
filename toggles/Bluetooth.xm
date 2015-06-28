@@ -37,6 +37,13 @@
 - (void) disable
 {
     BluetoothManager *man = [%c(BluetoothManager) sharedInstance];
+    if ([[man connectedDevices] count] == 0)
+    {
+        SET_VAL(@NO, @"didChange");
+        return;
+    }
+
+    SET_VAL(@YES, @"didChange");
     SET_STATE([man powered]);
     SET_VAL(@([man enabled]), @"enabled");
     [man setPowered:NO]; 
@@ -45,6 +52,8 @@
 
 - (void) enable
 {
+    if ([GET_VAL(@"didChange") boolValue] == NO)
+        return;
     BluetoothManager *man = [%c(BluetoothManager) sharedInstance];
     [man setPowered:GET_STATE];
     [man setEnabled:[GET_VAL(@"enabled") boolValue]];
