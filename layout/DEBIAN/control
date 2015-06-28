@@ -1,10 +1,10 @@
 Package: com.efrederickson.powersaver
 Name: Power Saver Mode
-Depends: mobilesubstrate
+Depends: mobilesubstrate, preferenceloader
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: Adds a power-saving mode to iOS that disables some system settings to extend battery life. Adds a link to the Battery Usage section to the main settings page, and adds the power saving mode button to the top of the battery usage view. Compatible with iOS 8.
+Description: Adds a power-saving mode to iOS
 Depiction: http://elijahandandrew.com/repo/depictions/PowerSaverMode/index.html
 Maintainer: Elijah Frederickson
-Author: Elijah Frederickson
+Author: Elijah and Andrew
 Section: Tweaks
