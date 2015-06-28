@@ -1,0 +1,34 @@
+#import "PowerSaver.h"
+#import "PSToggleProtocol.h"
+#import "PSPersistence.h"
+
+@interface SBTelephonyManager
++ (id)sharedTelephonyManager;
+- (void)setIsInAirplaneMode:(BOOL)airplaneMode;
+- (BOOL)isInAirplaneMode;
+@end
+
+@interface PSAirplaneToggle : NSObject<PSToggleProtocol>
+@end
+
+@implementation PSAirplaneToggle
+- (void) disable
+{
+	SET_STATE([[%c(SBTelephonyManager) sharedInstance] isInAirplaneMode]);
+	[[%c(SBTelephonyManager) sharedInstance] setIsInAirplaneMode:YES];
+}
+
+- (void) enable
+{
+    [[%c(SBTelephonyManager) sharedInstance] setIsInAirplaneMode:GET_STATE];
+}
+
+-(NSString*) identifier { return @"com.efrederickson.powersaver.toggles.airplanemode"; }
+-(NSString*) displayName { return @"Turn on Airplane Mode"; }
+@end
+
+%ctor
+{
+    static PSAirplaneToggle *toggle = [[PSAirplaneToggle alloc] init];
+    [[PowerSaver sharedInstance] addToggle:toggle];
+}

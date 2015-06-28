@@ -20,22 +20,22 @@ extern "C" void CTCellularDataPlanSetIsEnabled(Boolean enabled);
 {
 	if (MSHookIvar<void*>([%c(SBWiFiManager) sharedInstance], "_currentNetwork") == NULL)
 	{
-		SET_VAL(NO, @"didChange");
+		SET_VAL(@NO, @"didChange");
 		NSLog(@"[PowerSaver] WiFi is not connected, on Cellular Data already. ignoring.");
 		return;
 	}
 
-	SET_VAL(YES, @"didChange");
+	SET_VAL(@YES, @"didChange");
 	SET_STATE(CTCellularDataPlanGetIsEnabled());
 	CTCellularDataPlanSetIsEnabled(NO);
 }
 
 -(void) enable
 {
-	BOOL didChange = GET_VAL(@"didChange");
+	BOOL didChange = [GET_VAL(@"didChange") boolValue];
 	if (!didChange)
 		return;
-	SET_VAL(NO, @"didChange");
+	SET_VAL(@NO, @"didChange");
 
 	CTCellularDataPlanSetIsEnabled(GET_STATE);
 }

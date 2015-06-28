@@ -64,16 +64,16 @@
 	prefs = dict;
 }
 
--(BOOL) getValue:(NSString*)valName forIdentifier:(NSString*)identifier
+-(id) getValue:(NSString*)valName forIdentifier:(NSString*)identifier
 {
 	id val = [prefs valueForKey:[NSString stringWithFormat:@"ExtraVal-%@-%@",identifier,valName]];
-	return val ? [val boolValue] : NO;
+	return val;
 }
 
--(void) setValue:(BOOL)value forName:(NSString*)valName forIdentifier:(NSString*)identifier
+-(void) setValue:(id)value forName:(NSString*)valName forIdentifier:(NSString*)identifier
 {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:FILE_PATH] ?: [NSMutableDictionary dictionary];
-	dict[[NSString stringWithFormat:@"ExtraVal-%@-%@",identifier,valName]] = @(value);
+	dict[[NSString stringWithFormat:@"ExtraVal-%@-%@",identifier,valName]] = value;
 	[dict writeToFile:FILE_PATH atomically:YES];
 	
 	prefs = dict;

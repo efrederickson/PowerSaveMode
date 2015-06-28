@@ -13,8 +13,8 @@
 -(BOOL) isToggleStateOn:(NSString*)ident;
 -(void) setToggleState:(BOOL)value forIdentifier:(NSString*)ident;
 
--(BOOL) getValue:(NSString*)valName forIdentifier:(NSString*)identifier;
--(void) setValue:(BOOL)value forName:(NSString*)valName forIdentifier:(NSString*)identifier;
+-(id) getValue:(NSString*)valName forIdentifier:(NSString*)identifier;
+-(void) setValue:(id)value forName:(NSString*)valName forIdentifier:(NSString*)identifier;
 @end
 
 #define SET_STATE(val) [PSPersistence.sharedInstance setToggleState:val forIdentifier:self.identifier]

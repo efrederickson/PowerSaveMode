@@ -4,7 +4,8 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = PowerSaver
 PowerSaver_FILES = $(wildcard *.mm) $(wildcard *.xm) $(wildcard toggles/*.xm)
-PowerSaver_FRAMEWORKS = UIKit CoreTelephony CoreLocation
+PowerSaver_FRAMEWORKS = UIKit CoreTelephony CoreLocation 
+PowerSaver_PRIVATE_FRAMEWORKS = GraphicsServices Preferences
 PowerSaver_LDFLAGS = -lAccessibility
 PowerSaver_CFLAGS += -I.
 

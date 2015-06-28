@@ -14,12 +14,17 @@ When enabled:
 	√ turn on "Increase Contrast/Reduce Transparency"
 	√ Disable Cellular Data if on WiFi
 	√ disable location services
+	√ turn off auto-brightness
+	√ turn off ringer
+	√ turn off bluetooth (if no connected devices)
+	√ disable auto downloads (music, apps, books, etc) and auto updates
 	- turn off mail fetch (to manual)
 	- ? disable animated wallpapers (like ios 9)
-	- disable auto downloads (music, apps, books, etc) and auto updates
-	- turn off auto-brightness / turn brightness down
-	- turn off ringer / turn sounds (volume) down/off
-	- turn off bluetooth (if no connected devices)
+	- turn brightness down (with restoration unless changed)
+	- turn off vibration
+	- turn sounds (volume) down/off
+	? turn auto-lock to 1min
+	? turn on airplane mode
 
 √ When plugged in, auto-disable
 Add a button to the low power alerts
