@@ -10,7 +10,7 @@
 
 - (FSSwitchState)stateForSwitchIdentifier:(NSString *)switchIdentifier
 {
-	return [[%c(PowerSaver) sharedInstance] isEnabled] ? FSSwitchStateOn : FSSwitchStateOff;
+	return [[%c(PSPersistence) sharedInstance] isPSModeEnabled] ? FSSwitchStateOn : FSSwitchStateOff;
 }
 
 - (void)applyState:(FSSwitchState)newState forSwitchIdentifier:(NSString *)switchIdentifier

@@ -45,6 +45,23 @@ BOOL wasChanged = NO;
 }
 %end
 
+@interface SBLowPowerAlertItem
+-(UIAlertController*) alertController;
+@end
+%hook SBLowPowerAlertItem
+-(void) configure:(BOOL)arg1 requirePasscodeForActions:(BOOL)arg2
+{
+	%orig;
+
+	[[self alertController] addAction:[UIAlertAction actionWithTitle:@"Activate PowerSaverMode" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+		NSLog(@"PowerSaver: activating power saver from low power alert");
+
+		[PSPersistence.sharedInstance setPSModeEnabled:YES];
+		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("com.efrederickson.powersaver.settings_changed"), nil, nil, YES);
+	}]];
+}
+%end
+
 void reloadSettings(CFNotificationCenterRef center,
                     void *observer,
                     CFStringRef name,
